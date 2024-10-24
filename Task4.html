@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 80%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bank Account Manager</h1>
+
+    <input type="text" id="accountHolderName" placeholder="Account Holder Name"><br>
+    <input type="number" id="accountNumber" placeholder="Account Number"><br>
+    <input type="number" id="initialBalance" placeholder="Initial Balance"><br>
+
+    <button onclick="createAccount()">Create Account</button><br><br>
+
+    <input type="number" id="depositAmount" placeholder="Deposit Amount"><br>
+    <button onclick="deposit()">Deposit</button><br><br>
+
+    <input type="number" id="withdrawAmount" placeholder="Withdraw Amount"><br>
+    <button onclick="withdraw()">Withdraw</button><br><br>
+
+    <button onclick="checkBalance()">Check Balance</button><br>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    
+    let bankAccount = {
+        accountNumber: null,
+        accountHolderName: null,
+        balance: 0,
+
+        
+        deposit: function (amount) {
+            if (amount > 0) {
+                this.balance += amount;
+                return "Amount Rs." + amount + " deposited successfully.";
+            } else {
+                return "Please enter a valid amount to deposit.";
+            }
+        },
+
+        
+        withdraw: function (amount) {
+            if (amount > 0 && amount <= this.balance) {
+                this.balance -= amount;
+                return "Amount Rs." + amount + " withdrawn successfully.";
+            } else if (amount > this.balance) {
+                return "Insufficient balance.";
+            } else {
+                return "Please enter a valid amount to withdraw.";
+            }
+        },
+
+        
+        checkBalance: function () {
+            return "Current balance is Rs." + this.balance;
+        }
+    };
+
+    
+    function createAccount() {
+        let name = document.getElementById('accountHolderName').value;
+        let number = document.getElementById('accountNumber').value;
+        let initialBalance = parseFloat(document.getElementById('initialBalance').value);
+
+        if (name && number && initialBalance >= 0) {
+            bankAccount.accountHolderName = name;
+            bankAccount.accountNumber = number;
+            bankAccount.balance = initialBalance;
+
+            document.getElementById('result').innerHTML = `Account created for ${name} with Account Number ${number}. Initial balance is Rs.${initialBalance}.`;
+        } else {
+            document.getElementById('result').innerHTML = "Please fill out all fields correctly to create an account.";
+        }
+    }
+
+    
+    function deposit() {
+        let amount = parseFloat(document.getElementById('depositAmount').value);
+        let result = bankAccount.deposit(amount);
+        document.getElementById('result').innerHTML = result;
+    }
+
+    
+    function withdraw() {
+        let amount = parseFloat(document.getElementById('withdrawAmount').value);
+        let result = bankAccount.withdraw(amount);
+        document.getElementById('result').innerHTML = result;
+    }
+
+    
+    function checkBalance() {
+        let result = bankAccount.checkBalance();
+        document.getElementById('result').innerHTML = result;
+    }
+</script>
+
+</body>
+</html>

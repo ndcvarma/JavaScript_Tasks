@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Price Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculate Selling Price</h1>
+    <input type="number" id="costPrice" placeholder="Enter Cost Price">
+    <button onclick="calculatePrice()">Calculate Selling Price</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculatePrice() {
+        var costPrice = document.getElementById('costPrice').value;
+        if(costPrice && costPrice > 0) {
+            var discount = 20; 
+            var discountAmount = (costPrice * discount) / 100;
+            var sellingPrice = costPrice - discountAmount;
+            document.getElementById('result').innerHTML = "Selling Price: ₹" + sellingPrice.toFixed(2);
+        } else {
+            document.getElementById('result').innerHTML = "Please enter a valid cost price.";
+        }
+    }
+</script>
+
+</body>
+</html>

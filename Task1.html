@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #605f5f;
+    }
+    .login-container {
+      width: 300px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .login-container h2 {
+      text-align: center;
+    }
+    .login-container input {
+      width: 95%;
+      padding: 5px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 9px;
+    }
+    .login-container button {
+      width: 95%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+    .message {
+      text-align: center;
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <div class="message" id="message"></div>
+  </div>
+
+  <script>
+      function login() {
+          var username = document.getElementById('username').value;
+          var password = document.getElementById('password').value;
+          var message = document.getElementById('message');
+
+          message.innerHTML = '';
+          message.classList.remove('error', 'success');
+
+          if (username === 'Admin') {
+              if (password === 'Admin@123') {
+                  message.innerHTML = 'Login Success';
+                  message.classList.add('success');
+              } else {
+                  message.innerHTML = 'Incorrect password';
+                  message.classList.add('error');
+              }
+          } else {
+              message.innerHTML = 'Incorrect username or password';
+              message.classList.add('error');
+          }
+      }
+  </script>
+
+</body>
+</html>

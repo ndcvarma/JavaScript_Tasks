@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Magnifier</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .image-container {
+            position: relative;
+            width: 400px; 
+            height: 300px; 
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .magnifier {
+            position: absolute;
+            border: 3px solid #000;
+            border-radius: 50%;
+            width: 100px; 
+            height: 100px;
+            display: none; 
+            background-repeat: no-repeat;
+            pointer-events: none;
+            cursor: zoom-in;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="image-container">
+        <img src="https://www.mapsofworld.com/style_2019/images/world-map.png?v:1" alt="Image" id="image">
+        <div class="magnifier" id="magnifier"></div>
+    </div>
+
+    <script>
+        const image = document.getElementById('image');
+        const magnifier = document.getElementById('magnifier');
+        
+        const magnify = 2; 
+
+        
+        image.parentElement.addEventListener('mousemove', function (e) {
+            const containerRect = image.getBoundingClientRect();
+            const x = e.clientX - containerRect.left;
+            const y = e.clientY - containerRect.top;
+
+            
+            magnifier.style.display = 'block';
+
+            
+            magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+            magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+
+            
+            magnifier.style.backgroundImage = `url(${image.src})`;
+            magnifier.style.backgroundSize = `${image.width * magnify}px ${image.height * magnify}px`;
+            magnifier.style.backgroundPosition = `-${x * magnify - magnifier.offsetWidth / 2}px -${y * magnify - magnifier.offsetHeight / 2}px`;
+        });
+
+        
+        image.parentElement.addEventListener('mouseleave', function () {
+            magnifier.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Example</title>
+    <link rel="stylesheet" href="style.css">
+    <style>    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f9f9f9;
+    }
+  
+    .container {
+        text-align: center;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    h1 {
+        margin-bottom: 20px;
+    }
+    
+    .post {
+        margin-bottom: 20px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #02711c;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #218838;
+    }
+    
+    #relative-timestamp {
+        font-weight: bold;
+        color: #007bff;
+        margin-top: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Post Timestamp Example</h1>
+
+        <div class="post">
+            <p>Post created on:</p>
+            <p id="full-timestamp"></p>
+            <p id="relative-timestamp"></p>
+        </div>
+        <button id="createPost">Create New Post Timestamp</button>
+    </div>
+    
+<script>
+  
+  const fullTimestampDisplay = document.getElementById('full-timestamp');
+  const relativeTimestampDisplay = document.getElementById('relative-timestamp');
+  const createPostButton = document.getElementById('createPost');
+
+  
+  function formatDate(date) {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+  }
+
+  function formatTime(date) {
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${hours}.${minutes}.${seconds}`;
+  }
+  function getRelativeTime(pastDate) {
+      const now = new Date();
+      const diffInSeconds = Math.floor((now - pastDate) / 1000);
+
+      const seconds = diffInSeconds;
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const months = Math.floor(days / 30);
+
+      if (seconds < 60) {
+          return `${seconds} seconds ago`;
+      } else if (minutes < 60) {
+          return `${minutes} minutes ago`;
+      } else if (hours < 24) {
+          return `${hours} hours ago`;
+      } else if (days < 30) {
+          return `${days} days ago`;
+      } else {
+          return `${months} months ago`;
+      }
+  }
+  function updateTimestampDisplay() {
+      const now = new Date();
+      fullTimestampDisplay.textContent = `${formatDate(now)} ${formatTime(now)}`;
+      relativeTimestampDisplay.textContent = getRelativeTime(now);
+  }
+
+  createPostButton.addEventListener('click', () => {
+      const postTime = new Date();
+      fullTimestampDisplay.textContent = `${formatDate(postTime)} ${formatTime(postTime)}`;
+
+      setInterval(() => {
+          relativeTimestampDisplay.textContent = getRelativeTime(postTime);
+      }, 1000);
+  });
+</script>
+</body>
+</html>

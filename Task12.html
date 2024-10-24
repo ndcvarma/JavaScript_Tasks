@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Translation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Google Translation</h1>
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="fr">French</option>
+        <option value="te">Telugu</option>
+        <option value="nl">Dutch</option>
+    </select>
+
+    <p id="translatedText">Hi, welcome to Google Translation!</p>
+</div>
+
+<script>
+    const translations = {
+        en: "Hi, welcome to Google Translation!",
+        hi: "नमस्ते, गूगल अनुवाद में आपका स्वागत है!",
+        fr: "Salut, bienvenue sur Google Traduction!",
+        te: "హలో, గూగుల్ అనువాదానికి స్వాగతం!",
+        nl: "Hallo, welkom bij Google Vertalen!"
+    };
+
+    const selectElement = document.getElementById('languageSelect');
+    const textElement = document.getElementById('translatedText');
+
+    selectElement.addEventListener('change', function() {
+        const selectedLanguage = selectElement.value;
+        textElement.textContent = translations[selectedLanguage];
+    });
+</script>
+
+</body>
+</html>
